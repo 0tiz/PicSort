@@ -5,9 +5,10 @@ import shutil
 import json
 import PIL.ExifTags
 import os
+import gui
 
 folderNameWhatsApp = "Bilder Whatsapp"
-folderNameDoublePics = "Doppelte Bilder"
+folderNameDoublePics = ""
 
 
 def doublePicSorter (picPath):
