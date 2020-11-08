@@ -6,69 +6,38 @@ import fnmatch
 import shutil
 import PIL.ExifTags
 import os
+import sorter
 
-picPath = "D:/Sortierer/"
+
 folderNameWhatsApp = "Bilder Whatsapp"
 # Die folgende Funktion soll ausgeführt werden, wenn
 # der Benutzer den Button anklickt
 
-def whatsAppSorter(picPath=picPath):
-    #dir createt if not exist   
-    if not os.path.exists(picPath + folderNameWhatsApp):
-        os.mkdir(picPath+folderNameWhatsApp) 
-        os.listdir(path=picPath) 
-
-    #create a vluelist of pics in dir
-    list_PicsInDirectory = (fnmatch.filter(os.listdir(picPath), '*.jpg'))
-
-    startLoop = 0 
-    i = 0
-    h = 0 
-    whatsAppPicCounter = 0
-
-    
-
-    while startLoop < len(list_PicsInDirectory): 
-        
-        while i  < len(list_PicsInDirectory): 
-            
-            #check if exifData exist
-            img = Image.open(picPath + list_PicsInDirectory[h])
-            exif_data = img._getexif()
-            img.close()
-
-            print (exif_data)
-
-            if exif_data is None:
-                shutil.move(picPath+list_PicsInDirectory[h], picPath + folderNameWhatsApp)
-                whatsAppPicCounter = whatsAppPicCounter + 1
-                list_PicsInDirectory.pop(h) 
-                i = 0 
-                h = 0 
-                startLoop = 0 
-
-            else: 
-                print ("kein Whatsapp Bild") 
-                i = i + 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-                h = i
-        break
-    print("Es wurden " + str(whatsAppPicCounter) + " WhatsApp Bilder verschoben")
-
+# Funktionuiert aber der WErt in FolderPath wird nicht angepasst
 def button_getPath():
+    global folderPath
     test = tkinter.filedialog.askdirectory()
     pfadAnzeige.config(text=test)
-    picPath = pfadAnzeige
+    folderPath = str(test + "/")
+    print (folderPath)
 
-# Ein fenster erstellen
+def start_button():
+
+    try:
+        sorter.whatsAppSorter(folderPath)
+    except NameError:
+        print("Bitte wähle einen Ordner")
+    except FileNotFoundError:
+        print("Es befinden sich keine Bilder in diesem Ordner")
+
 fenster = tkinter.Tk()
-# fenster.geometry(500*500)
-# Den fenstertitle erstellen
+
 fenster.title("PicSor")
 
 # Label und Buttons erstellen.
 getPath_button =        Button(fenster,text="Ordnerwahl",command=button_getPath)
-startProgram_button =   Button(fenster,text="Start"     ,command=whatsAppSorter)
 exit_button =           Button(fenster,text="Beenden"   , command=fenster.quit)
+start_button =          Button(fenster,text= "Start"    ,command=start_button)
 
 pfadAnzeige = Label(text="Kein Order gewählt")
 
@@ -79,7 +48,7 @@ pfadAnzeige = Label(text="Kein Order gewählt")
 # in der gwünschten Reihenfolge hinzu.
 pfadAnzeige.pack()
 getPath_button.pack()
-startProgram_button.pack()
+start_button.pack()
 exit_button.pack()
 
 
@@ -89,8 +58,6 @@ exit_button.pack()
 # In der Ereignisschleife auf Eingabe des Benutzers warten.
 fenster.mainloop()
 
-test = getPath_button
-print (test)
 
 
 
