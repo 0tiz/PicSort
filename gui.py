@@ -24,9 +24,12 @@ def whatsAppSorter(picPath=picPath):
     startLoop = 0 
     i = 0
     h = 0 
-    whatsAppPicCounter = 0 
+    whatsAppPicCounter = 0
+
+    
 
     while startLoop < len(list_PicsInDirectory): 
+        
         while i  < len(list_PicsInDirectory): 
             
             #check if exifData exist
@@ -46,22 +49,15 @@ def whatsAppSorter(picPath=picPath):
 
             else: 
                 print ("kein Whatsapp Bild") 
-                i = i + 1
+                i = i + 1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
                 h = i
-                
-    if whatsAppPicCounter == 0: 
-        print ('Programm beendet \n '+ 'Es gab keine WhatsApp Bilder') 
-    else: 
-        print ('Programm beendet\n' + 'Es wurden '+ str(whatsAppPicCounter) + ' Whatsapp Bilder erkannt und verschoben in '+ str(picPath+folderNameDoublePics))
-
+        break
+    print("Es wurden " + str(whatsAppPicCounter) + " WhatsApp Bilder verschoben")
 
 def button_getPath():
     test = tkinter.filedialog.askdirectory()
     pfadAnzeige.config(text=test)
-    picPath = test + "/"
-
-
-
+    picPath = pfadAnzeige
 
 # Ein fenster erstellen
 fenster = tkinter.Tk()
@@ -77,12 +73,16 @@ exit_button =           Button(fenster,text="Beenden"   , command=fenster.quit)
 pfadAnzeige = Label(text="Kein Order gewählt")
 
 
+
+
 # Nun fügen wir die Komponenten unserem fenster 
 # in der gwünschten Reihenfolge hinzu.
 pfadAnzeige.pack()
 getPath_button.pack()
 startProgram_button.pack()
 exit_button.pack()
+
+
 
 
 
